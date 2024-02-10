@@ -1,0 +1,489 @@
+definitions:
+  CreateProduct:
+    properties:
+      active:
+        type: boolean
+      description:
+        maxLength: 45
+        minLength: 1
+        type: string
+      price:
+        type: number
+      type:
+        type: integer
+    required:
+    - description
+    - price
+    type: object
+  CreateUser:
+    properties:
+      active:
+        type: boolean
+      email:
+        maxLength: 255
+        minLength: 1
+        type: string
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      password:
+        maxLength: 15
+        minLength: 1
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  Login:
+    properties:
+      password:
+        maxLength: 15
+        minLength: 1
+        type: string
+      username:
+        maxLength: 255
+        minLength: 1
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  Product:
+    properties:
+      active:
+        type: boolean
+      description:
+        maxLength: 45
+        type: string
+      id:
+        type: string
+      price:
+        type: number
+      type:
+        type: integer
+    required:
+    - description
+    - id
+    - price
+    type: object
+  Register:
+    properties:
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      password:
+        maxLength: 15
+        minLength: 1
+        type: string
+      username:
+        maxLength: 255
+        minLength: 1
+        type: string
+    required:
+    - name
+    - password
+    - username
+    type: object
+  State:
+    properties:
+      state:
+        type: string
+    type: object
+  Token:
+    properties:
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/User'
+    type: object
+  User:
+    properties:
+      active:
+        type: boolean
+      email:
+        maxLength: 255
+        type: string
+      id:
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      password:
+        maxLength: 255
+        type: string
+    required:
+    - email
+    - id
+    - name
+    - password
+    type: object
+info:
+  contact:
+    email: byraimundoferreira@gmail.com
+    name: API Support
+  description: Example API with Golang using Gin, PostgreSQL, PGX, JWT and Swagger.
+  title: API with Golang
+  version: "1.0"
+paths:
+  /api/product:
+    get:
+      consumes:
+      - application/json
+      description: return list of product
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Product'
+            type: array
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Get all products
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: return product created
+      parameters:
+      - description: Create product
+        in: body
+        name: Product
+        required: true
+        schema:
+          $ref: '#/definitions/CreateProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Product'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Create product
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: return product updated
+      parameters:
+      - description: Update product
+        in: body
+        name: Product
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Product'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Update product
+      tags:
+      - Product
+  /api/product/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: return message deleted
+      parameters:
+      - description: enter the product id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Delete product
+      tags:
+      - Product
+    get:
+      consumes:
+      - application/json
+      description: return product by id
+      parameters:
+      - description: enter the product id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Product'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Get product by id
+      tags:
+      - Product
+  /api/register:
+    post:
+      consumes:
+      - application/json
+      description: Create user for access api
+      parameters:
+      - description: Access key for register user
+        format: GUID
+        in: query
+        name: AccessKey
+        required: true
+        type: string
+      - description: Register user
+        in: body
+        name: Register
+        required: true
+        schema:
+          $ref: '#/definitions/Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Register user
+      tags:
+      - Authorization
+  /api/state:
+    get:
+      consumes:
+      - application/json
+      description: return state of authorization
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/State'
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Get state
+      tags:
+      - Authorization
+  /api/token:
+    post:
+      consumes:
+      - application/json
+      description: return token for access api
+      parameters:
+      - description: Create token
+        in: body
+        name: Login
+        required: true
+        schema:
+          $ref: '#/definitions/Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Token'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create token
+      tags:
+      - Authorization
+  /api/user:
+    get:
+      consumes:
+      - application/json
+      description: return list of user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/User'
+            type: array
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Get all users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: return user created
+      parameters:
+      - description: Create user
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/CreateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Create user
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: return user updated
+      parameters:
+      - description: Update user
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Update user
+      tags:
+      - User
+  /api/user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: return message deleted
+      parameters:
+      - description: enter the user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Delete user
+      tags:
+      - User
+    get:
+      consumes:
+      - application/json
+      description: return user by id
+      parameters:
+      - description: enter the user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Get user by id
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

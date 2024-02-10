@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "2133c989-c693-4c2f-9990-b1b5f60f2104",
+		"name": "api-exemple-go",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2095319"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Administrator\",\r\n    \"username\": \"adm@gmail.com\",\r\n    \"password\": \"adm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/register?AccessKey=42975313-085b-4c09-90c0-11fe6ba6de5d",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"register"
+							],
+							"query": [
+								{
+									"key": "AccessKey",
+									"value": "42975313-085b-4c09-90c0-11fe6ba6de5d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"token\", responseJSON.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"adm@gmail.com\",\r\n    \"password\": \"adm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/token",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "state",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/state",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"state"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"idTeste\", responseJSON.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"create\",\r\n    \"email\": \"create@gmail.com\",\r\n    \"password\": \"create\",\r\n    \"active\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{idTeste}}\",\r\n    \"name\": \"update\",\r\n    \"email\": \"update@gmail.com\",\r\n    \"password\": \"update\",\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/{{idTeste}}",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"{{idTeste}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/{{idTeste}}",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"{{idTeste}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"idTeste\", responseJSON.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"create\",\r\n    \"price\": 39.50,\r\n    \"active\": true,\r\n    \"type\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/product",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{idTeste}}\",\r\n    \"description\": \"update\",\r\n    \"price\": 39.50,\r\n    \"active\": true,\r\n    \"type\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/product",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/product/{{idTeste}}",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"product",
+								"{{idTeste}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/product",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"status é igual a 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"try {\r",
+									"    responseJSON = JSON.parse(responseBody);\r",
+									"    tests['resposta é um JSON válido'] = true;\r",
+									"}\r",
+									"catch (e) {\r",
+									"    responseJSON = {};\r",
+									"    tests['resposta não é um JSON válido'] = false;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/product/{{idTeste}}",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"product",
+								"{{idTeste}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
